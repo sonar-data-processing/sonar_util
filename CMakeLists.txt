@@ -1,7 +1,12 @@
 cmake_minimum_required (VERSION 2.6)
 project (sonar_util)
 
-set ( ${PROJECT_NAME}_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include CACHE INTERNAL "Sonar Util Include Directory" FORCE )
+set (
+    ${PROJECT_NAME}_INCLUDE_DIR
+    ${PROJECT_SOURCE_DIR}/include
+    CACHE PATH "Sonar Util Include Directory"
+    FORCE
+)
 
 file ( GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp )
 
