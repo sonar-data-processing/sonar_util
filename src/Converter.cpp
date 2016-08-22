@@ -6,9 +6,9 @@ using namespace base;
 namespace sonar_util  {
 
 std::vector<int> Converter::generate_beam_mapping(const std::vector<float>& bins,
-                                                             const std::vector<float>& bearings,
-                                                             uint32_t bin_count, uint32_t beam_count,
-                                                             uint32_t frame_width, uint32_t frame_height) {
+                                                  const std::vector<float>& bearings,
+                                                  uint32_t bin_count, uint32_t beam_count,
+                                                  uint32_t frame_width, uint32_t frame_height) {
 
     unsigned int max_radius = bin_count;
 
@@ -62,9 +62,9 @@ std::vector<int> Converter::generate_beam_mapping(const std::vector<float>& bins
 }
 
 std::vector<int> Converter::generate_beam_mapping_from_cartesian(const std::vector<float>& bins,
-                                                                            const std::vector<float>& bearings,
-                                                                            uint32_t bin_count, uint32_t beam_count,
-                                                                            uint32_t frame_width, uint32_t frame_height) {
+                                                                 const std::vector<float>& bearings,
+                                                                 uint32_t bin_count, uint32_t beam_count,
+                                                                 uint32_t frame_width, uint32_t frame_height) {
 
     float min_angle = bearings[0];
     float max_angle = bearings[bearings.size()-1];
@@ -128,12 +128,12 @@ cv::Mat Converter::convert2raw(std::vector<float> data, int number_of_beams, int
 }
 
 cv::Mat Converter::convert2polar(std::vector<uint8_t> data,
-                                            uint16_t number_of_beams,
-                                            uint16_t number_of_bins,
-                                            float start_bearing,
-                                            float angular_resolution,
-                                            uint32_t frame_height,
-                                            sonar_util::color_palletes::PalleteType pallete_type) {
+                                 uint16_t number_of_beams,
+                                 uint16_t number_of_bins,
+                                 float start_bearing,
+                                 float angular_resolution,
+                                 uint32_t frame_height,
+                                 sonar_util::color_palletes::PalleteType pallete_type) {
 
     float max_angle = start_bearing + angular_resolution * number_of_beams;
     float min_angle = start_bearing;
@@ -166,11 +166,11 @@ cv::Mat Converter::convert2polar(std::vector<uint8_t> data,
 
 
 cv::Mat Converter::convert2polar(const std::vector<float>& bins,
-                                            const std::vector<float>& bearings,
-                                            uint32_t bin_count, uint32_t beam_count,
-                                            uint32_t frame_width, uint32_t frame_height,
-                                            std::vector<int> beam_mapping,
-                                            color_palletes::PalleteType pallete_type) {
+                                 const std::vector<float>& bearings,
+                                 uint32_t bin_count, uint32_t beam_count,
+                                 uint32_t frame_width, uint32_t frame_height,
+                                 std::vector<int> beam_mapping,
+                                 color_palletes::PalleteType pallete_type) {
 
     if (beam_mapping.empty()) {
         beam_mapping = generate_beam_mapping_from_cartesian(bins, bearings, bin_count, beam_count, frame_width, frame_height);
