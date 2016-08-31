@@ -111,15 +111,15 @@ cv::Mat Converter::convert2raw(std::vector<float> data, int number_of_beams, int
 
     for (int y = 0; y < sonar_image.rows; y++) {
         for (int x = 0; x < sonar_image.cols; x++) {
-            int sonar_beam = x * number_of_beams / frame_width;
-            int sonar_bin = y * number_of_bins / frame_height;
+            int sonar_beam = x * number_of_beams / frame_height;
+            int sonar_bin = y * number_of_bins / frame_width;
 
-            uint8_t bin = data[sonar_beam * number_of_bins + sonar_bin] * 255;
+            uint8_t bin = data[sonar_bin * number_of_bins + sonar_beam] * 255;
 
             if (pallete_type == color_palletes::GRAY_PALLETE) {
-                sonar_image.at<uchar>(sonar_image.rows - y - 1, x) = bin;
+                sonar_image.at<uchar>(y, x) = bin;
             } else {
-                sonar_image.at<cv::Vec3b>(sonar_image.rows - y - 1, x) = pallete.color(bin);
+                sonar_image.at<cv::Vec3b>(y, x) = pallete.color(bin);
             }
         }
     }
