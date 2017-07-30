@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cmath>
 #include <stdexcept>
-#include "sonar_util/ColorPalletes.hpp"
+#include "ColorPalletes.hpp"
 
 namespace sonar_util {
 

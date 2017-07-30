@@ -2,7 +2,7 @@
 #define Converter_hpp
 
 #include <opencv2/opencv.hpp>
-#include "sonar_util/ColorPalletes.hpp"
+#include "ColorPalletes.hpp"
 
 namespace sonar_util {
 
@@ -12,9 +12,8 @@ public:
                                                   const std::vector<float>& bearings,
                                                   uint32_t bin_count, uint32_t beam_count,
                                                   uint32_t frame_width, uint32_t frame_height);
-                                                  
-    static std::vector<int> generate_beam_mapping_from_cartesian(const std::vector<float>& bins,
-                                                                 const std::vector<float>& bearings,
+
+    static std::vector<int> generate_beam_mapping_from_cartesian(const std::vector<float>& bearings,
                                                                  uint32_t bin_count, uint32_t beam_count,
                                                                  uint32_t frame_width, uint32_t frame_height);
 

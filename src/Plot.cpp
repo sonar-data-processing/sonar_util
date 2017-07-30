@@ -1,5 +1,5 @@
 #include "base/MathUtil.hpp"
-#include "sonar_util/Plot.hpp"
+#include "Plot.hpp"
 
 namespace sonar_util {
 

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <opencv2/opencv.hpp>
-#include "sonar_util/Converter.hpp"
+#include "Converter.hpp"
 
 namespace sonar_util {
 

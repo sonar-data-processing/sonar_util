@@ -1,5 +1,5 @@
 #include "base/MathUtil.hpp"
-#include "sonar_util/Converter.hpp"
+#include "Converter.hpp"
 
 using namespace base;
 
@@ -61,8 +61,7 @@ std::vector<int> Converter::generate_beam_mapping(const std::vector<float>& bins
     return beam_mapping;
 }
 
-std::vector<int> Converter::generate_beam_mapping_from_cartesian(const std::vector<float>& bins,
-                                                                 const std::vector<float>& bearings,
+std::vector<int> Converter::generate_beam_mapping_from_cartesian(const std::vector<float>& bearings,
                                                                  uint32_t bin_count, uint32_t beam_count,
                                                                  uint32_t frame_width, uint32_t frame_height) {
 
@@ -173,7 +172,7 @@ cv::Mat Converter::convert2polar(const std::vector<float>& bins,
                                  color_palletes::PalleteType pallete_type) {
 
     if (beam_mapping.empty()) {
-        beam_mapping = generate_beam_mapping_from_cartesian(bins, bearings, bin_count, beam_count, frame_width, frame_height);
+        beam_mapping = generate_beam_mapping_from_cartesian(bearings, bin_count, beam_count, frame_width, frame_height);
     }
 
     cv::Mat sonar_image = cv::Mat::zeros(cv::Size(frame_width, frame_height), ((pallete_type == color_palletes::GRAY_PALLETE) ? CV_8UC1 : CV_8UC3));
