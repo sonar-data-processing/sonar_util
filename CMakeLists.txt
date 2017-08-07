@@ -9,7 +9,7 @@ include_directories (
 )
 
 add_library (
-    sonar_util STATIC
+    sonar_util SHARED
     ${SOURCES}
 )
 
