@@ -1,4 +1,5 @@
 <package>
     <author>Gustavo Neves/gustavo.neves12@gmail.com</author>
     <depend package="sonar_toolkit/base" />
+    <depend package="sonar_toolkit/sonar_processing" />
 </package>

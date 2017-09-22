@@ -1,4 +1,4 @@
-#include "base/MathUtil.hpp"
+#include <sonar_processing/MathUtil.hpp>
 #include "Plot.hpp"
 
 namespace sonar_util {
@@ -14,7 +14,7 @@ void polarshow(const std::string name,
                 color_palletes::PalleteType pallete_type) {
 
     cv::Mat mat = Converter::convert2polar(
-        bins, 
+        bins,
         bearings,
         bin_count,
         beam_count,
@@ -34,12 +34,12 @@ void polarshow(const std::string name,
                 uint32_t frame_height,
                 std::vector<int> beam_mapping,
                 color_palletes::PalleteType pallete_type) {
-    
+
     float angle = bearings[bearings.size()-1];
     uint32_t frame_width = base::MathUtil::aspect_ratio_width(angle, frame_height);
     polarshow(name, bins, bearings, bin_count, beam_count,
                frame_width, frame_height, beam_mapping, pallete_type);
-    
+
 } /* function show_polar */
 
 

@@ -1,4 +1,4 @@
-#include "base/MathUtil.hpp"
+#include <sonar_processing/MathUtil.hpp>
 #include "Converter.hpp"
 
 using namespace base;
@@ -24,30 +24,30 @@ std::vector<int> Converter::generate_beam_mapping(const std::vector<float>& bins
     int cx = ref_width >> 1;
 
     std::vector<int> beam_mapping(frame_height * frame_width, -1);
-    
+
     for (unsigned int y = 0; y < frame_height; y++) {
         for (unsigned int beam = 0; beam < beam_count-1; beam++) {
-            
+
             float r0 = y;
             float r1 = (y + 1);
-            
+
             float min_angle = bearings[beam];
             float max_angle = bearings[beam+1];
             float theta0 = min_angle - M_PI_2;
             float theta1 = max_angle - M_PI_2;
-            
+
             cv::Rect rc = MathUtil::arc_bounding_box(theta0, theta1, r0, r1, cv::Point(cx, cy));
-            
+
             for (int y = rc.tl().y; y <= rc.br().y && y < frame_height; y++) {
                 for (int x = rc.tl().x; x <= rc.br().x && x < ref_width; x++) {
                     int *beam_mapping_ptr = &beam_mapping[y * frame_width + x * scale_x];
-                    
+
                     if (*(beam_mapping_ptr) == -1) {
                         float dx = cx - x;
                         float dy = cy - y;
                         float r = sqrt(dx * dx + dy * dy);
                         float t = atan2(dy, dx) - M_PI_2;
-                        
+
                         if (r <= r1 && r >= r0 && t >= min_angle && t < max_angle) {
                             int bin = r * height_to_bin_factor;
                             *(beam_mapping_ptr) = beam  * bin_count + bin;
@@ -71,24 +71,24 @@ std::vector<int> Converter::generate_beam_mapping_from_cartesian(const std::vect
     float height_to_bin_factor =  (float)bin_count / frame_height;
 
     int max_radius = frame_height;
-    
+
     int ref_width = MathUtil::aspect_ratio_width(max_angle, frame_height);
     float scale_x = frame_width / (float)ref_width;
-    
+
     int cy = frame_height;
     int cx = ref_width >> 1;
-    
+
     std::vector<int> beam_mapping(frame_height * frame_width, -1);
 
     for (int y = 0; y < cy; y++) {
         for (int x = 0; x < ref_width; x++) {
             int *beam_mapping_ptr = &beam_mapping[y * frame_width + x * scale_x];
-            if (*(beam_mapping_ptr) == -1) {             
+            if (*(beam_mapping_ptr) == -1) {
                 float dx = cx - x;
                 float dy = cy - y;
                 float r = sqrt(dx * dx + dy * dy);
                 float t = atan2(dy, dx) - M_PI_2;
-                
+
                 if (r <= max_radius && r >= 0 && t >= min_angle && t <= max_angle) {
                     int bin = r * height_to_bin_factor;
                     std::vector<float>::const_iterator it = std::upper_bound(bearings.begin(), bearings.end(), t);
@@ -199,4 +199,3 @@ cv::Mat Converter::convert2polar(const std::vector<float>& bins,
 }
 
 } /* namespace sonar_util */
-                                                                 
