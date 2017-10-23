@@ -5,6 +5,7 @@ file ( GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp )
 file ( GLOB HEADERS ${PROJECT_SOURCE_DIR}/src/*.hpp )
 
 include_directories (
+    ${CMAKE_INSTALL_PREFIX}/include
     ${CMAKE_INSTALL_PREFIX}/include/sonar_toolkit
 )
 
